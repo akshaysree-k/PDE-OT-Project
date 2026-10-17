@@ -82,14 +82,9 @@ These theories explain the forward response when line properties are known; by t
 
 TDR is a well-established diagnostic method: the delay of a reflected feature indicates distance, while its amplitude depends on the impedance change. In the ideal single-discontinuity case, the voltage reflection coefficient is
 
-\[
-\Gamma =
-\frac{Z_{\text{fault}}-Z_{\text{ref}}}
-{Z_{\text{fault}}+Z_{\text{ref}}}
-\tag{2.1}
-\]
+$$\Gamma =\frac{Z_{\text{fault}}-Z_{\text{ref}}}{Z_{\text{fault}}+Z_{\text{ref}}}\tag{2.1}$$
 
-where \(Z_{\text{ref}}\) is the impedance immediately before the discontinuity and \(Z_{\text{fault}}\) is the impedance after it.
+where $Z_{\text{ref}}$ is the impedance immediately before the discontinuity and $Z_{\text{fault}}$ is the impedance after it.
 
 In a distributed, lossy line, multiple reflections and parameter coupling make this interpretation less direct.
 
@@ -107,32 +102,24 @@ Its main caveat is identifiability: a single trace may not cleanly distinguish r
 
 ## 3.1 Field Model and Telegrapher’s Equations
 
-For a short line segment of length \(dx\), voltage and current change because of the distributed series resistance \(R(x)\) and inductance \(L(x)\), and the shunt conductance \(G(x)\) and capacitance \(C(x)\).
+For a short line segment of length $dx$, voltage and current change because of the distributed series resistance $R(x)$ and inductance $L(x)$, and the shunt conductance $G(x)$ and capacitance $C(x)$.
 
 Applying voltage and current conservation to the segment gives the telegrapher’s equations:
 
-\[
-\frac{\partial V(x,t)}{\partial x}
-=
--R(x)I(x,t)
--L(x)\frac{\partial I(x,t)}{\partial t}
-\tag{3.1}
-\]
+$$
+\frac{\partial V(x,t)}{\partial x}=-R(x)I(x,t)-L(x)\frac{\partial I(x,t)}{\partial t}\tag{3.1}
+$$
 
-\[
-\frac{\partial I(x,t)}{\partial x}
-=
--G(x)V(x,t)
--C(x)\frac{\partial V(x,t)}{\partial t}
-\tag{3.2}
-\]
+$$
+\frac{\partial I(x,t)}{\partial x}=-G(x)V(x,t)-C(x)\frac{\partial V(x,t)}{\partial t}\tag{3.2}
+$$
 
 Here:
 
-- \(V(x,t)\) is voltage in volts.
-- \(I(x,t)\) is current in amperes.
-- \(x\) is distance along the line.
-- \(t\) is time.
+- $V(x,t)$ is voltage in volts.
+- $I(x,t)$ is current in amperes.
+- $x$ is distance along the line.
+- $t$ is time.
 
 The per-unit-length parameters have units:
 
@@ -145,119 +132,73 @@ The spatial derivatives represent voltage or current change per unit length; the
 
 These equations are the one-dimensional transmission-line form consistent with Maxwell’s field laws and circuit conservation for a line whose cross-sectional fields can be represented by distributed parameters.
 
-For constant parameters, differentiate Equation (3.1) with respect to \(x\) and substitute Equation (3.2) and its time derivative to eliminate \(I\).
+For constant parameters, differentiate Equation (3.1) with respect to $x$ and substitute Equation (3.2) and its time derivative to eliminate $I$.
 
 The resulting voltage equation is
 
-\[
-\frac{\partial^2 V}{\partial x^2}
-=
-LC\frac{\partial^2 V}{\partial t^2}
-+
-(RC+LG)\frac{\partial V}{\partial t}
-+
-RGV
-\tag{3.3}
-\]
+$$
+\frac{\partial^2 V}{\partial x^2}=LC\frac{\partial^2 V}{\partial t^2}+(RC+LG)\frac{\partial V}{\partial t}+RGV\tag{3.3}
+$$
 
 The analogous current equation has the same structure.
 
 Equation (3.3) is a damped-wave, hyperbolic PDE when the line parameters are positive and the distributed coefficients are constant.
 
-The initial state is taken to be zero before the source step is applied. At \(x=0\), the source launches the incident step; at \(x=\ell\), the load condition determines the outgoing and returning waves.
+The initial state is taken to be zero before the source step is applied. At $x=0$, the source launches the incident step; at $x=\ell$, the load condition determines the outgoing and returning waves.
 
 A physically complete simulation must specify the source impedance and load impedance, because both affect the trace.
 
 ## 3.2 Laplace-Domain Model
 
-Taking the Laplace transform with respect to time, assuming zero initial conditions, converts time derivatives into multiplication by the complex frequency \(s\).
+Taking the Laplace transform with respect to time, assuming zero initial conditions, converts time derivatives into multiplication by the complex frequency $s$.
 
 The transformed telegrapher’s equations are
 
-\[
-\frac{dV(x,s)}{dx}
-=
--(R+sL)I(x,s)
-\tag{3.4}
-\]
+$$\frac{dV(x,s)}{dx}=-(R+sL)I(x,s)\tag{3.4}$$
 
-\[
-\frac{dI(x,s)}{dx}
-=
--(G+sC)V(x,s)
-\tag{3.5}
-\]
+$$\frac{dI(x,s)}{dx}=-(G+sC)V(x,s)\tag{3.5}$$
 
 The propagation constant and characteristic impedance follow as
 
-\[
-\gamma(s)
-=
-\sqrt{(R+sL)(G+sC)}
-\tag{3.6}
-\]
+$$\gamma(s)=\sqrt{(R+sL)(G+sC)}\tag{3.6}$$
 
-\[
-Z_c(s)
-=
-\sqrt{\frac{R+sL}{G+sC}}
-\tag{3.7}
-\]
+$$Z_c(s)=\sqrt{\frac{R+sL}{G+sC}}\tag{3.7}$$
 
-The propagation constant \(\gamma(s)\) describes attenuation and phase change per unit length; \(Z_c(s)\) is the voltage-to-current ratio of a travelling wave.
+The propagation constant $\gamma(s)$ describes attenuation and phase change per unit length; $Z_c(s)$ is the voltage-to-current ratio of a travelling wave.
 
 For a low-loss line, the nominal wave speed is approximately
 
-\[
-v=\frac{1}{\sqrt{LC}}
-\]
+$$v=\frac{1}{\sqrt{LC}}$$
 
 With
 
-\[
-L_0=250\text{ nH/m}
-\]
+$$L_0=250\text{ nH/m}$$
 
 and
 
-\[
-C_0=100\text{ pF/m}
-\]
+$$C_0=100\text{ pF/m}$$
 
 the wave speed is approximately
 
-\[
-v\approx 2.0\times 10^8\text{ m/s}
-\]
+$$v\approx 2.0\times 10^8\text{ m/s}$$
 
 This gives a one-way delay of about 5 ns over one metre.
 
 A reflection returning to the input from a fault at 0.5 m is therefore expected after approximately
 
-\[
-t_{\text{round-trip}}=\frac{2x}{v}=5\text{ ns}
-\]
+$$t_{\text{round-trip}}=\frac{2x}{v}=5\text{ ns}$$
 
 Using the nominal values, the characteristic impedance is approximately
 
-\[
-Z_{c0}\approx \sqrt{\frac{L_0}{C_0}}=50\ \Omega
-\]
+$$Z_{c0}\approx \sqrt{\frac{L_0}{C_0}}=50\ \Omega$$
 
-If only capacitance changes to \(0.6C_0\), the local low-loss impedance estimate becomes
+If only capacitance changes to $0.6C_0$, the local low-loss impedance estimate becomes
 
-\[
-Z_{\text{fault}}
-\approx
-\sqrt{\frac{L_0}{0.6C_0}}
-\approx 64.5\ \Omega
-\]
+$$Z_{\text{fault}}\approx\sqrt{\frac{L_0}{0.6C_0}}\approx 64.5\ \Omega$$
 
 Substitution into Equation (2.1) gives
 
-\[
-\Gamma\approx 0.127
-\]
+$$\Gamma\approx 0.127$$
 
 This is a useful order-of-magnitude check for the observed TDR bump, not an exact prediction for the full lossy, multi-parameter simulation.
 
@@ -265,64 +206,43 @@ This is a useful order-of-magnitude check for the observed TDR bump, not an exac
 
 The line is divided into
 
-\[
-N_x=50
-\]
+$$N_x=50$$
 
 nodes across
 
-\[
-\ell=1\text{ m}
-\]
+$$\ell=1\text{ m}$$
 
 The grid spacing is
 
-\[
-\Delta x=\frac{\ell}{N_x-1}
-=\frac{1}{49}\text{ m}
-\approx 20.4\text{ mm}
-\tag{3.8}
-\]
+$$\Delta x=\frac{\ell}{N_x-1}=\frac{1}{49}\text{ m}\approx 20.4\text{ mm}\tag{3.8}$$
 
 The forward model uses a staggered-grid leapfrog finite-difference time-domain (FDTD) scheme.
 
 Voltage and current are updated at alternating spatial and temporal locations, which is natural for the coupled first-order Equations (3.1)–(3.2).
 
-For wave speed \(v\), a conservative Courant condition is
+For wave speed $v$, a conservative Courant condition is
 
-\[
-\frac{v\Delta t}{\Delta x}\leq 1
-\tag{3.9}
-\]
+$$\frac{v\Delta t}{\Delta x}\leq 1\tag{3.9}$$
 
 The project configuration uses
 
-\[
-\Delta t=0.9\frac{\Delta x}{v}
-\approx 0.092\text{ ns}
-\]
+$$\Delta t=0.9\frac{\Delta x}{v}\approx 0.092\text{ ns}$$
 
 which is below this limit.
 
 Approximately 435 steps cover the stated simulation window of roughly 40 ns.
 
-Let \(y_{\text{meas}}\) be the sampled measured TDR trace and \(y_0\) the trace generated by the nominal line. Their difference is the data vector
+Let $y_{\text{meas}}$ be the sampled measured TDR trace and $y_0$ the trace generated by the nominal line. Their difference is the data vector
 
-\[
-b=y_{\text{meas}}-y_0
-\tag{3.10}
-\]
+$$b=y_{\text{meas}}-y_0\tag{3.10}$$
 
-Let \(p\) collect the discretized parameter perturbations.
+Let $p$ collect the discretized parameter perturbations.
 
-A sensitivity matrix \(A\) is assembled so that its \(j\)-th column represents the approximate change in the TDR samples caused by a perturbation at node \(j\).
+A sensitivity matrix $A$ is assembled so that its $j$-th column represents the approximate change in the TDR samples caused by a perturbation at node $j$.
 
 For small perturbations, the nonlinear forward response is approximated locally by
 
-\[
-Ap\approx b
-\tag{3.11}
-\]
+$$Ap\approx b\tag{3.11}$$
 
 This is a linearized inverse model, not a guarantee that the complete transmission-line equations are linear in the unknown parameters.
 
@@ -332,57 +252,37 @@ Because a fault is expected to occupy only a few nodes, a sparse residual-fittin
 
 The inverse estimate minimizes the sum of absolute data residuals:
 
-\[
-\min_{p\geq 0}\|Ap-b\|_1
-=
-\min_{p\geq 0}
-\sum_{k=1}^{M}|(Ap-b)_k|
-\tag{3.12}
-\]
+$$\min_{p\geq 0}\|Ap-b\|_1=\min_{p\geq 0}\sum_{k=1}^{M}|(Ap-b)_k|\tag{3.12}$$
 
-where \(M\) is the number of sampled time points and \(p\geq 0\) enforces non-negativity for the chosen perturbation representation.
+where $M$ is the number of sampled time points and $p\geq 0$ enforces non-negativity for the chosen perturbation representation.
 
-Absolute values are not linear, so introduce a non-negative slack variable \(\varepsilon_k\) for each sample.
+Absolute values are not linear, so introduce a non-negative slack variable $\varepsilon_k$ for each sample.
 
 The condition
 
-\[
-|(Ap-b)_k|\leq\varepsilon_k
-\]
+$$|(Ap-b)_k|\leq\varepsilon_k$$
 
 is equivalent to two linear inequalities:
 
-\[
-Ap-\varepsilon\leq b
-\tag{3.13}
-\]
+$$Ap-\varepsilon\leq b\tag{3.13}$$
 
-\[
--Ap-\varepsilon\leq-b
-\tag{3.14}
-\]
+$$-Ap-\varepsilon\leq-b\tag{3.14}$$
 
 with constraints
 
-\[
-\varepsilon\geq 0,\qquad p\geq 0
-\tag{3.15}
-\]
+$$\varepsilon\geq 0,\qquad p\geq 0\tag{3.15}$$
 
 The resulting linear program is
 
-\[
-\min_{p,\varepsilon}\mathbf{1}^{T}\varepsilon
-\tag{3.16}
-\]
+$$\min_{p,\varepsilon}\mathbf{1}^{T}\varepsilon\tag{3.16}$$
 
 subject to the inequalities above.
 
-The objective \(\mathbf{1}^{T}\varepsilon\) is the total absolute residual. It is linear, as are the constraints, so a standard LP solver such as SciPy’s `linprog` with the HiGHS backend can solve it.
+The objective $\mathbf{1}^{T}\varepsilon$ is the total absolute residual. It is linear, as are the constraints, so a standard LP solver such as SciPy’s `linprog` with the HiGHS backend can solve it.
 
 Since resistance is expected to rise while capacitance falls, the implementation must encode signed changes carefully, for example by representing positive and negative perturbations with separate non-negative variables.
 
-Non-negativity of the final physical profiles \(R(x)\) and \(C(x)\) should be checked after reconstruction.
+Non-negativity of the final physical profiles $R(x)$ and $C(x)$ should be checked after reconstruction.
 
 ---
 
@@ -409,17 +309,17 @@ The provided figures are output plots from the project workflow. The raw trace s
 
 | Parameter | Value |
 |---|---|
-| Line length, \(\ell\) | 1 m |
-| Spatial nodes, \(N_x\) | 50 |
-| Nominal resistance, \(R_0\) | 0.1 Ω/m |
-| Nominal inductance, \(L_0\) | 250 nH/m |
-| Nominal conductance, \(G_0\) | 0 S/m |
-| Nominal capacitance, \(C_0\) | 100 pF/m |
+| Line length, $\ell$ | 1 m |
+| Spatial nodes, $N_x$ | 50 |
+| Nominal resistance, $R_0$ | 0.1 Ω/m |
+| Nominal inductance, $L_0$ | 250 nH/m |
+| Nominal conductance, $G_0$ | 0 S/m |
+| Nominal capacitance, $C_0$ | 100 pF/m |
 | Fault location | Approximately 0.5 m |
 | Fault width | 3 nodes |
-| Fault changes | \(R\times4,\ C\times0.6\) |
+| Fault changes | $R\times4,\ C\times0.6$ |
 | Nominal impedance | Approximately 50 Ω |
-| Nominal wave speed | Approximately \(2\times10^8\) m/s |
+| Nominal wave speed | Approximately $2\times10^8$ m/s |
 
 ---
 
@@ -433,7 +333,7 @@ Both rise rapidly from zero to a plateau near 0.5 V.
 
 The most visible difference is a positive bump around 5–5.5 ns followed by a small undershoot.
 
-This timing is consistent with the predicted round-trip delay from a fault near the midpoint of a one-metre line with wave speed close to \(2\times10^8\) m/s.
+This timing is consistent with the predicted round-trip delay from a fault near the midpoint of a one-metre line with wave speed close to $2\times10^8$ m/s.
 
 A smaller feature appears close to the end of the displayed window; without the source/load configuration and raw samples, it should not be attributed uniquely to another fault.
 
@@ -445,7 +345,7 @@ A smaller feature appears close to the end of the displayed window; without the 
 
 Figure 5.2 shows the estimated resistance and capacitance profiles together with the reference profiles, as well as the waveform residual.
 
-The dashed reference resistance profile has a localized increase around \(x=0.5\) m, while the reference capacitance falls in the same region.
+The dashed reference resistance profile has a localized increase around $x=0.5$ m, while the reference capacitance falls in the same region.
 
 The LP reconstruction places its largest resistance spike and its capacitance dip near this location.
 
@@ -455,9 +355,7 @@ The reconstruction is not exact.
 
 The plotted resistance estimate overshoots the reference peak and contains a secondary spike around
 
-\[
-x\approx0.77\text{ m}
-\]
+$$x\approx0.77\text{ m}$$
 
 that is absent from the reference.
 
@@ -469,11 +367,11 @@ The residual panel oscillates around zero with most visible excursions on the or
 
 A residual centred around zero suggests that the fitted trace captures the broad measured waveform without a large constant bias.
 
-However, a small residual alone does not prove that the recovered \(R(x)\) and \(C(x)\) are uniquely correct: distinct parameter profiles may produce similar traces.
+However, a small residual alone does not prove that the recovered $R(x)$ and $C(x)$ are uniquely correct: distinct parameter profiles may produce similar traces.
 
 Numerical residual norms and a noise-sweep table should be exported directly from the solver before quantitative error claims are made.
 
-**Figure 5.2:** Provided inversion results: reconstructed \(R(x)\) and \(C(x)\) against the reference profiles, and the residual \(V_{\text{meas}}-V_{\text{fit}}\).
+**Figure 5.2:** Provided inversion results: reconstructed $R(x)$ and $C(x)$ against the reference profiles, and the residual $V_{\text{meas}}-V_{\text{fit}}$.
 
 > [Original PDF Figure 5.2: Insert the reconstructed resistance profile, capacitance profile, reference profiles, and residual plot here.]
 
@@ -566,8 +464,8 @@ The main lesson is that each stage constrains the next: a physically inconsisten
 |---|---|---|
 | Field model | Vector calculus / electromagnetics | Telegrapher equations (3.1)–(3.2) |
 | PDE | Partial differential equations | Damped-wave equation (3.3) |
-| Transform | Laplace transforms | \(\gamma(s)\) and \(Z_c(s)\) in (3.6)–(3.7) |
-| Discretization | Numerical methods / linear algebra | Staggered-grid FDTD and sensitivity system \(Ap\approx b\) |
+| Transform | Laplace transforms | $\gamma(s)$ and $Z_c(s)$ in (3.6)–(3.7) |
+| Discretization | Numerical methods / linear algebra | Staggered-grid FDTD and sensitivity system $Ap\approx b$ |
 | Optimization | Linear programming | Slack-variable formulation (3.16) |
 | Verification | Python computational lab | Trace/profile plots, CFL and non-negativity checks |
 
